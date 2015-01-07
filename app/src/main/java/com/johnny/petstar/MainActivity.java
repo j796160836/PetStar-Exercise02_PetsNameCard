@@ -1,19 +1,53 @@
 package com.johnny.petstar;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 
 public class MainActivity extends ActionBarActivity {
+
+    private ImageView facebook_button;
+    private ImageView gplus_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        facebook_button = (ImageView) findViewById(R.id.facebook_button);
+        gplus_button = (ImageView) findViewById(R.id.gplus_button);
+
+        facebook_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openWebBrowser("http://fb.com/");
+            }
+        });
+
+        gplus_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openWebBrowser("http://plus.google.com/");
+            }
+        });
     }
 
+    private void openWebBrowser(String url) {
+        try {
+            Intent i = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(url));
+            startActivity(i);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
